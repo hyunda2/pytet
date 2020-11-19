@@ -1,21 +1,21 @@
 from matrix import *
 
 def draw_matrix(m):
-        array = m.get_array()
-        for y in range(m.get_dy()):
-            for x in range(m.get_dx()):
-                if array[y][x] == 0:                    
-                    print("□", end='')
-                elif array[y][x] == 1:
-                    print("■", end='')
-                else:
-                    print("XX", end='')
-            print()
+    array = m.get_array()
+    for y in range(m.get_dy()):
+        for x in range(m.get_dx()):
+            if array[y][x] == 0:
+                print("□", end='')
+            elif array[y][x] == 1:
+                print("■", end='')
+            else:
+                print("XX", end='')
+        print()
 
 def transpose(m): 
     N = len(m)
     ret = [[0] * N for _ in range(N)]
-    
+
     for r in range(N):
         for c in range(N):
             ret[c][N-1-r] = m[r][c]
@@ -24,7 +24,6 @@ def transpose(m):
 ###
 ### initialize variables
 ###     
-
 arrayBlk_s =[ [ [ 0, 0, 1, 0 ], [ 0, 0, 1, 0 ], [ 0, 0, 1, 0 ], [ 0, 0, 1, 0 ] ],
 [ [ 1, 0, 0 ], [ 1, 1, 1 ], [ 0, 0, 0 ] ],
 [ [ 0, 0, 1 ], [ 1, 1, 1 ], [ 0, 0, 0 ] ],
@@ -47,7 +46,6 @@ left = iScreenDw + iScreenDx//2 - 2
 newBlockNeeded = False
 
 arrayScreen = [
-
     [ 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1 ],
     [ 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1 ],
     [ 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1 ],
@@ -63,9 +61,9 @@ arrayScreen = [
     [ 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1 ],
     [ 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1 ],
     [ 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1 ],
-    [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ],    
-    [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ],    
-    [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ],    
+    [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ],
+    [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ],
+    [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ],
     [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ] ]
 
 ###
@@ -102,11 +100,11 @@ while True:
             top += 1
             tempBlk = iScreen.clip(top, left, top+currBlk.get_dy(), left+currBlk.get_dx())
             tempBlk = tempBlk + currBlk
-    else: 
+    else:
         print('Wrong key!!!')
         continue
 
-    tempBlk = iScreen.clip(top, left, top+currBlk.get_dy(), left+currBlk.get_dx())    
+    tempBlk = iScreen.clip(top, left, top+currBlk.get_dy(), left+currBlk.get_dx())
     tempBlk = tempBlk + currBlk
     if tempBlk.anyGreaterThan(1):
         if key == 'a': # undo: move right
@@ -123,14 +121,13 @@ while True:
         elif key == ' ': # undo: move up
             top -= 1
             newBlockNeeded = True
-        
-        
-        tempBlk = iScreen.clip(top, left, top+currBlk.get_dy(), left+currBlk.get_dx())  
+
+        tempBlk = iScreen.clip(top, left, top+currBlk.get_dy(), left+currBlk.get_dx())
         tempBlk = tempBlk + currBlk
-    
+
     oScreen = Matrix(iScreen)
     oScreen.paste(tempBlk, top, left)
-    draw_matrix(oScreen); print()    
+    draw_matrix(oScreen); print()
 
     if newBlockNeeded:
         iScreen = Matrix(oScreen)
@@ -146,9 +143,11 @@ while True:
         if tempBlk.anyGreaterThan(1):
             print('Game Over!!!')
             break
+        
         oScreen = Matrix(iScreen)
         oScreen.paste(tempBlk, top, left)
-        draw_matrix(oScreen); print()                                                                                                                                                                                                                                                                                                                                                        
+        draw_matrix(oScreen); print()
+        
 ###
 ### end of the loop
 ###
